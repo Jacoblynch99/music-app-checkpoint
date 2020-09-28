@@ -1,86 +1,133 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react';
 import { Grid, Typography, Card, Switch, Slider, Select, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  
-      isChecked : false,
-      selectValue : 'Medium',
-      volumeValue : 40
-    }
+const useStyles = makeStyles({
+  text: {
+    paddingTop: 50, 
+    paddingLeft: 200
+  },
+  card: {
+    maxWidth: 300, 
+    height: 200, 
+    paddingLeft: 15, 
+    paddingTop:20
+  },
+  slider: {
+    width: 250, 
+    marginLeft: 20, 
+    paddingTop:30
+  },
+  select: {
+    width: 250, 
+    marginLeft: 10, 
+    paddingTop:20
+  },
+  firstType: {
+    paddingTop:10
+  },
+  secondType: {
+    paddingTop:20
+  },
+  firstGrid: {
+    paddingTop: 10
+  },
+  secondGrid: {
+    paddingTop:50
+  }
+});
+
+export default function Dashboard() {
+
+   const classes = useStyles();
+
+  const [selectValue, setSelect] = useState('')
+  const [volumeValue, setVolume] = useState('')
+  const [checkedValue, setSwitch] = useState({
+    isChecked: true
+  })
+
+
+  const handleSelectChange = (event) => {
+    setSelect(event.target.value)
   }
 
-  handleSelectChange = (event) => {
-    this.setState({selectValue: event.target.value})
+  const handleVolumeChange = ( event, newValue) => {
+    setVolume(newValue)
+    console.log(newValue)
   }
 
-  handleVolumeChange = ( event, newValue) => {
-    this.setState({volumeValue: newValue})
+  const handleSwitchChange = ( event ) => {
+    setSwitch({ ...checkedValue, [event.target.name]: event.target.checked })
   }
 
-  handleSwitchChange = () => {
-    this.setState({isChecked: this.state.isChecked === false ? true : false})
-  }
-  
-  render() { 
-    return (  
-      <Grid container direction="column" justify="center" alignItems="center" spacing={3} style={{ paddingTop: 10}}>
-        <Typography variant="h4">
-          Welcome User!
-        </Typography>
 
-        <Grid container direction="row" justify="center" alignItems="center" spacing={2} style={{ paddingTop:100}}>  
-          <Grid item>
-            <Card style={{ maxWidth: 300, height: 200, paddingLeft: 15, paddingTop:20}}>
-              <Typography variant="h5" style={{ paddingTop:10}}>
-                Online Mode
-              </Typography>
-              <Typography variant="subtitle1" style={{ paddingTop:20}}>
-                Is this application connected to the internet?
-              </Typography>
-              <Switch checked={this.state.isChecked} onChange={this.handleSwitchChange}/>
-            </Card>
-          </Grid>
-          <Grid item >
-            <Card style={{ maxWidth: 300, height: 200, paddingLeft: 15, paddingTop:20}}>
-              <Typography variant="h5" style={{ paddingTop:10}}>
-                Master Volume
-              </Typography>
-              <Typography variant="subtitle1" style={{ paddingTop:20}}>
-                Overrides all other sound settings in the application.
-              </Typography>
-              <Slider
-                valueLabelDisplay="auto"
-                step={10}
-                marks
-                min={0}
-                max={100}
-                style={{ width: 250, marginLeft: 20, paddingTop:30}}
-                value={this.state.volumeValue}
-                onChange={this.handleVolumeChange}
-              />
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card style={{ maxWidth: 300, height: 200, paddingLeft: 15, paddingTop:20}}>
-              <Typography variant="h5" style={{ paddingTop:10}}>
-                Sound Quality
-              </Typography>
-              <Typography variant="subtitle1" style={{ paddingTop:20}}>
-                Manually control the music quality in event of poor connection.
-              </Typography>
-              <Select onChange={this.handleSelectChange} value={this.state.selectValue} style={{ width: 250, marginLeft: 10, paddingTop:20}}>
-                <MenuItem value={'High'}>High</MenuItem>
-                <MenuItem value={'Medium'}>Medium</MenuItem>
-                <MenuItem value={'Low'}>Low</MenuItem>
-              </Select>
-            </Card>
-          </Grid>
+  return (
+    <Grid container direction="column" justify="center" alignItems="baseline" spacing={3} className={classes.firstGrid}>
+      <Typography variant="h4" className={classes.text}>
+        Welcome User!
+      </Typography>
+      <Grid container direction="row" justify="center" alignItems="center" spacing={2} className={classes.secondGrid}>  
+        <Grid item>
+          <Card className={classes.card}>
+            <Typography variant="h5" className={classes.firstType}>
+              Online Mode
+            </Typography>
+            <Typography variant="subtitle1" className={classes.secondType}>
+              Is this application connected to the internet?
+            </Typography>
+            <Switch checked={checkedValue.isChecked} name="isChecked" onChange={handleSwitchChange}/>
+          </Card>
+        </Grid>
+        <Grid item >
+          <Card className={classes.card}>
+            <Typography variant="h5" className={classes.firstType}>
+              Master Volume
+            </Typography>
+            <Typography variant="subtitle1" className={classes.secondType}>
+              Overrides all other sound settings in the application.
+            </Typography>
+            <Slider
+              defaultValue={30}
+              valueLabelDisplay="auto"
+              step={10}
+              marks
+              min={0}
+              max={100}
+              className={classes.slider}
+              onChange={handleVolumeChange}
+            />
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card className={classes.card}>
+            <Typography variant="h5" className={classes.firstType}>
+              Sound Quality
+            </Typography>
+            <Typography variant="subtitle1" className={classes.secondType}>
+              Manually control the music quality in event of poor connection.
+            </Typography>
+            <Select onChange={handleSelectChange} value={selectValue} className={classes.select}>
+              <MenuItem value={'High'}>
+                High
+              </MenuItem>
+              <MenuItem value={'Medium'}>
+                Medium
+              </MenuItem>
+              <MenuItem value={'Low'}>
+                Low
+              </MenuItem>
+            </Select>
+          </Card>
         </Grid>
       </Grid>
-    );
-  }
+      <Typography variant="h4" color="initial" className={classes.text}>
+        Comments?
+      </Typography>
+    </Grid>
+  )
 }
+
+
+
  
-export default Dashboard;
