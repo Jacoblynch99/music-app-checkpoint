@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { Grid, Typography, Card, Switch, Slider, Select, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Text from './Text'
+
 
 const useStyles = makeStyles({
   text: {
@@ -46,19 +48,39 @@ export default function Dashboard() {
   const [checkedValue, setSwitch] = useState({
     isChecked: true
   })
+  const [messageValue, setValue] = useState({
+    switch: '',
+    sound: '',
+    select: ''
+  })
 
 
   const handleSelectChange = (event) => {
     setSelect(event.target.value)
+    if (event.target.value === 'Low') {
+      setValue({...messageValue, select: "Music quality is degraded. Increase quality if your connection allows it."})
+    } else {
+      setValue({...messageValue, select: ""})
+    }
+
   }
 
   const handleVolumeChange = ( event, newValue) => {
     setVolume(newValue)
-    console.log(newValue)
+    if (newValue > 79) {
+      setValue({...messageValue, sound: "Listening to music at a high volume could cause long-term hearing loss."})
+    } else {
+      setValue({...messageValue, sound: ""})
+    }
   }
 
   const handleSwitchChange = ( event ) => {
     setSwitch({ ...checkedValue, [event.target.name]: event.target.checked })
+    if (!event.target.checked) {
+      setValue({...messageValue, switch: "Your application is offline. You won't be able to share or stream music to other devices."})
+    } else {
+      setValue({...messageValue, switch: ""})
+    }
   }
 
 
@@ -122,7 +144,8 @@ export default function Dashboard() {
         </Grid>
       </Grid>
       <Typography variant="h4" color="initial" className={classes.text}>
-        Comments?
+        System Notifications: 
+        <Text switch={messageValue.switch} sound={messageValue.sound} select={messageValue.select}/>
       </Typography>
     </Grid>
   )
