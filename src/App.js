@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import HeaderPastel from './components/HeaderPastel'
-import MainPastel from './components/MainPastel'
+import Header from './components/Header'
+import Main from './components/Main'
 
 function App() {
   return (
     <div className="App">
-      <HeaderPastel className={"App-header"}/>
-      <MainPastel className={"App-body"}/>
+      <Header/>
+      <Main/>
     </div>
   );
 }

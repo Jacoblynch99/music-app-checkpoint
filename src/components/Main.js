@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginIn from './LoginIn'
 
-const MainPastel = (props) => {
+const Main = (props) => {
   return ( 
     <main className={props.className} style={{height:1000}}>
       <LoginIn/>
@@ -9,4 +9,4 @@ const MainPastel = (props) => {
    );
 }
  
-export default MainPastel;
+export default Main;
