@@ -50,6 +50,7 @@ class LoginIn extends Component {
                             label="Username"
                             onKeyUp={this.onInput}
                             name="username"
+                            style={{ marginTop: 10, width: 150 }}
                         />
                     </Grid>
                     <Grid item>
@@ -59,6 +60,7 @@ class LoginIn extends Component {
                             label="Password"
                             onKeyUp={this.onInput}
                             name="password"
+                            style={{ marginTop: 10, width: 150 }}
                         />
                     </Grid>
                     <Grid item>
