@@ -9,6 +9,7 @@ import {
     MenuItem,
     CardContent,
     CardActions,
+    FormHelperText,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Text from './Text'
@@ -51,7 +52,7 @@ const useStyles = makeStyles({
 export default function Dashboard() {
     const classes = useStyles()
 
-    const [selectValue, setSelect] = useState('')
+    const [selectValue, setSelect] = useState('Medium')
     const [volumeValue, setVolume] = useState('')
     const [checkedValue, setSwitch] = useState({
         isChecked: true,
@@ -64,12 +65,14 @@ export default function Dashboard() {
 
     const handleSelectChange = (event) => {
         setSelect(event.target.value)
+
         if (event.target.value === 'Low') {
             setNotifications({
                 ...notifications,
                 select:
                     'Music quality is degraded. Increase quality if your connection allows it.',
             })
+            console.log(volumeValue)
         } else {
             setNotifications({ ...notifications, select: '' })
         }
@@ -181,6 +184,9 @@ export default function Dashboard() {
                                 <MenuItem value={'Medium'}>Medium</MenuItem>
                                 <MenuItem value={'Low'}>Low</MenuItem>
                             </Select>
+                            <FormHelperText>
+                                Select Sound Quality
+                            </FormHelperText>
                         </CardActions>
                     </Card>
                 </Grid>
