@@ -58,6 +58,7 @@ class LoginIn extends Component {
                             required
                             id="standard-basic"
                             label="Password"
+                            type="password"
                             onKeyUp={this.onInput}
                             name="password"
                             style={{ marginTop: 10, width: 150 }}
