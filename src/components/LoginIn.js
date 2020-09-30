@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import Dashboard from './Dashboard'
+
 import { Grid } from '@material-ui/core'
+import SomeComponent from './SomeComponent'
 
 class LoginIn extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class LoginIn extends Component {
 
     render() {
         return this.state.loggedIn ? (
-            <Dashboard />
+            <SomeComponent />
         ) : (
             <form style={{ marginTop: 10 }}>
                 <Grid
