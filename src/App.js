@@ -1,15 +1,15 @@
-import React from 'react';
-import './App.css';
-import HeaderPastel from './components/HeaderPastel'
-import MainPastel from './components/MainPastel'
+import React from 'react'
+import './App.css'
+import Header from './components/Header'
+import Main from './components/Main'
 
 function App() {
-  return (
-    <div className="App">
-      <HeaderPastel className={"App-header"}/>
-      <MainPastel className={"App-body"}/>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Header />
+            <Main />
+        </div>
+    )
 }
 
-export default App;
+export default App
